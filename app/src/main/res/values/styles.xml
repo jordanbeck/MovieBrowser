@@ -20,10 +20,12 @@
     </style>
     <!-- Specific text appearances -->
     <style name="AppTheme.TextAppearance.Title" parent="AppTheme.TextAppearance.Primary">
-        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textStyle">bold</item>
     </style>
-    <style name="AppTheme.TextAppearance.Metadata" parent="AppTheme.TextAppearance.Secondary">
+    <style name="AppTheme.TextAppearance.Title.Large">
+        <item name="android:textSize">@dimen/font_large</item>
     </style>
+    <style name="AppTheme.TextAppearance.Metadata" parent="AppTheme.TextAppearance.Secondary" />
 
 </resources>

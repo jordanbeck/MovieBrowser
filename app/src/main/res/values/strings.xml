@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie Browser</string>
 
+    <!-- Messages -->
+    <string name="msg_no_summary">There is no summary available for this movie.</string>
+
     <!-- Labels -->
     <string name="label_search">Search</string>
     <string name="label_favorites">Favorites</string>

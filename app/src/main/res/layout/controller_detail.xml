@@ -5,10 +5,30 @@
     android:layout_height="match_parent"
     android:padding="@dimen/generic_medium">
 
-    <TextView
-        android:id="@+id/detail_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Movie Details go here"/>
+        android:paddingBottom="@dimen/generic_medium">
+
+        <ImageView
+            android:id="@+id/detail_poster"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/generic_medium"/>
+
+        <TextView
+            android:id="@+id/detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/generic_medium"
+            android:textAppearance="@style/AppTheme.TextAppearance.Title.Large"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/detail_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
