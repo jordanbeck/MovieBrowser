@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMovieSelected(Movie movie) {
         Intent i = new Intent(this, DetailActivity.class);
-        i.putExtra(DetailActivity.EXTRA_MOVIE_TITLE, movie.title);
+        i.putExtra(DetailActivity.EXTRA_MOVIE, movie);
         startActivity(i);
     }
 }
