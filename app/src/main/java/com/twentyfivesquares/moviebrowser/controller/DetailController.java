@@ -4,14 +4,14 @@ import android.content.Context;
 
 import com.twentyfivesquares.moviebrowser.R;
 
-public class FavoriteController extends TinyController {
+public class DetailController extends TinyController {
 
-    public FavoriteController(Context context) {
+    public DetailController(Context context) {
         super(context);
     }
 
     @Override
     protected int getLayoutRes() {
-        return R.layout.controller_favorite;
+        return R.layout.controller_detail;
     }
 }
