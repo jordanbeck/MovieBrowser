@@ -30,13 +30,16 @@
                 android:id="@+id/movie_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:ellipsize="end"/>
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:textAppearance="@style/AppTheme.TextAppearance.Title"/>
 
             <TextView
-                android:id="@+id/movie_rating"
+                android:id="@+id/movie_metadata"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/generic_small"
+                android:textAppearance="@style/AppTheme.TextAppearance.Metadata"/>
 
         </LinearLayout>
 

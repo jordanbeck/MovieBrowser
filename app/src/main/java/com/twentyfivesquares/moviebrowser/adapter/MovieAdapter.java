@@ -51,7 +51,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         final Movie movie = movies.get(position);
 
         holder.vName.setText(movie.title);
-        holder.vRating.setText(movie.rated);
+        // Sometimes the rating is null. In those cases, just show the year
+        holder.vMetadata.setText(movie.rated == null ? movie.year :
+                context.getString(R.string.label_movie_metadata, movie.year, movie.rated));
 
         Picasso.with(context).load(movie.poster).into(holder.vPoster);
 
@@ -72,14 +74,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView vName;
-        public TextView vRating;
+        public TextView vMetadata;
         public ImageView vPoster;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             vName = (TextView) itemView.findViewById(R.id.movie_name);
-            vRating = (TextView) itemView.findViewById(R.id.movie_rating);
+            vMetadata = (TextView) itemView.findViewById(R.id.movie_metadata);
             vPoster = (ImageView) itemView.findViewById(R.id.movie_poster);
         }
     }

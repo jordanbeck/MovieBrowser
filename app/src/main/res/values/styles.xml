@@ -8,4 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Foundational text appearances -->
+    <style name="AppTheme.TextAppearance" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/font_regular</item>
+    </style>
+    <style name="AppTheme.TextAppearance.Primary">
+        <item name="android:textColor">@color/fontPrimary</item>
+    </style>
+    <style name="AppTheme.TextAppearance.Secondary">
+        <item name="android:textColor">@color/fontSecondary</item>
+    </style>
+    <!-- Specific text appearances -->
+    <style name="AppTheme.TextAppearance.Title" parent="AppTheme.TextAppearance.Primary">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.TextAppearance.Metadata" parent="AppTheme.TextAppearance.Secondary">
+    </style>
+
 </resources>

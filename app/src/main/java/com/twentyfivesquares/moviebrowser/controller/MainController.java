@@ -68,9 +68,9 @@ public class MainController extends TinyController {
         public CharSequence getPageTitle(int position) {
             // Page title is used for the tabs via TabLayout.setupWithViewPager() above
             if (position == 0) {
-                return getContext().getString(R.string.tab_search);
+                return getContext().getString(R.string.label_search);
             } else if (position == 1) {
-                return getContext().getString(R.string.tab_favorites);
+                return getContext().getString(R.string.label_favorites);
             }
 
             throw new IllegalStateException("Position " + position + " not available");

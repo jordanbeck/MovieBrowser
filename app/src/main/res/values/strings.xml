@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Movie Browser</string>
 
-    <string name="tab_search">Search</string>
-    <string name="tab_favorites">Favorites</string>
+    <!-- Labels -->
+    <string name="label_search">Search</string>
+    <string name="label_favorites">Favorites</string>
+    <string name="label_movie_metadata">%1$s \u2022 %2$s</string>
 
 </resources>
