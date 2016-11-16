@@ -1,12 +1,15 @@
 package com.twentyfivesquares.moviebrowser.adapter;
 
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.model.Movie;
 
@@ -44,8 +47,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        final Context context = holder.itemView.getContext();
         final Movie movie = movies.get(position);
+
         holder.vName.setText(movie.title);
+        holder.vRating.setText(movie.rated);
+
+        Picasso.with(context).load(movie.poster).into(holder.vPoster);
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,10 +72,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView vName;
+        public TextView vRating;
+        public ImageView vPoster;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             vName = (TextView) itemView.findViewById(R.id.movie_name);
+            vRating = (TextView) itemView.findViewById(R.id.movie_rating);
+            vPoster = (ImageView) itemView.findViewById(R.id.movie_poster);
         }
     }
 
