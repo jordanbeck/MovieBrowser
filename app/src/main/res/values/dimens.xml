@@ -1,5 +1,8 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Some generic spacings that are used in Material Design spec. -->
+    <dimen name="generic_xxsmall">1dp</dimen>
+    <dimen name="generic_xsmall">4dp</dimen>
+    <dimen name="generic_small">8dp</dimen>
+    <dimen name="generic_medium">16dp</dimen>
+    <dimen name="generic_large">32dp</dimen>
 </resources>
