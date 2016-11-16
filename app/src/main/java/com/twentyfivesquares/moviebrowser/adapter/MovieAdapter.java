@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
+import com.twentyfivesquares.moviebrowser.controller.view.StarRibbonView;
 import com.twentyfivesquares.moviebrowser.model.Movie;
 
 import java.util.List;
@@ -75,6 +76,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView vName;
         public TextView vMetadata;
+        public StarRibbonView vStar;
         public ImageView vPoster;
 
         public ViewHolder(View itemView) {
@@ -82,6 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
             vName = (TextView) itemView.findViewById(R.id.movie_name);
             vMetadata = (TextView) itemView.findViewById(R.id.movie_metadata);
+            vStar = (StarRibbonView) itemView.findViewById(R.id.movie_star);
             vPoster = (ImageView) itemView.findViewById(R.id.movie_poster);
         }
     }

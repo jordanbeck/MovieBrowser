@@ -7,8 +7,7 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="8dp">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
@@ -20,10 +19,17 @@
             android:scaleType="centerCrop"
             android:background="@color/colorAccent"/>
 
+        <com.twentyfivesquares.moviebrowser.controller.view.StarRibbonView
+            android:id="@+id/movie_star"
+            android:layout_width="@dimen/star_ribbon_size"
+            android:layout_height="@dimen/star_ribbon_size"
+            android:layout_alignRight="@id/movie_poster"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/movie_poster"
             android:padding="@dimen/generic_medium">
 
             <TextView
@@ -43,6 +49,6 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.v7.widget.CardView>
