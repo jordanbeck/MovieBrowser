@@ -1,7 +1,9 @@
 package com.twentyfivesquares.moviebrowser.controller;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +24,9 @@ public class DetailController extends TinyController {
     private TextView vMetadata;
     private TextView vDirector;
     private TextView vSummary;
+    private FloatingActionButton vStarButton;
+
+    private Movie movie;
 
     public DetailController(Context context, String movieId) {
         super(context);
@@ -32,6 +37,13 @@ public class DetailController extends TinyController {
         vMetadata = (TextView) findViewById(R.id.detail_metadata);
         vDirector = (TextView) findViewById(R.id.detail_director);
         vSummary = (TextView) findViewById(R.id.detail_summary);
+        vStarButton = (FloatingActionButton) findViewById(R.id.detail_star_button);
+        vStarButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleStar();
+            }
+        });
 
         MovieApi api = new MovieApi();
         api.fetchMovie(movieId, new Callback<Movie>() {
@@ -41,9 +53,7 @@ public class DetailController extends TinyController {
             }
 
             @Override
-            public void failure(RetrofitError error) {
-
-            }
+            public void failure(RetrofitError error) {}
         });
     }
 
@@ -53,6 +63,8 @@ public class DetailController extends TinyController {
     }
 
     private void populate(Movie movie) {
+        this.movie = movie;
+
         vTitle.setText(movie.title);
         vGenre.setText(movie.genre);
         vDirector.setText(movie.director);
@@ -63,5 +75,10 @@ public class DetailController extends TinyController {
                 getContext().getString(R.string.label_movie_metadata_three, movie.rated, movie.year, movie.runtime));
 
         Picasso.with(getContext()).load(movie.poster).into(vPoster);
+    }
+
+    private void toggleStar() {
+        movie.starred = !movie.starred;
+        vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
     }
 }

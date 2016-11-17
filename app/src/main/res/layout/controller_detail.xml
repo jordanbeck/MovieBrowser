@@ -1,83 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <include layout="@layout/toolbar" />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    
+    <LinearLayout 
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/generic_medium"
-        android:background="@color/colorAccent">
-
-        <ImageView
-            android:id="@+id/detail_poster"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/generic_medium"
-            android:background="@color/colorPrimary"
-            android:padding="1dp"/>
-
+        android:layout_height="match_parent">
+    
+        <include layout="@layout/toolbar" />
+    
         <LinearLayout
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/generic_medium"
+            android:background="@color/colorAccent">
+    
+            <ImageView
+                android:id="@+id/detail_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/generic_medium"
+                android:background="@color/colorPrimary"
+                android:padding="1dp"/>
+    
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+    
+                <TextView
+                    android:id="@+id/detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Title.Large"/>
+    
+                <TextView
+                    android:id="@+id/detail_metadata"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/generic_medium"/>
+    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
+                    android:text="@string/label_detail_genre"/>
+    
+                <TextView
+                    android:id="@+id/detail_genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"
+                    android:layout_marginBottom="@dimen/generic_small"/>
+    
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
+                    android:text="@string/label_detail_director"/>
+    
+                <TextView
+                    android:id="@+id/detail_director"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"/>
+    
+            </LinearLayout>
+    
+        </LinearLayout>
+    
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorAccentDark" />
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0">
+    
             <TextView
-                android:id="@+id/detail_title"
+                android:id="@+id/detail_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.Title.Large"/>
+                android:padding="@dimen/generic_medium"
+                android:lineSpacingExtra="6dp"
+                android:textAppearance="@style/AppTheme.TextAppearance.Summary"/>
 
-            <TextView
-                android:id="@+id/detail_metadata"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/generic_medium"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
-                android:text="@string/label_detail_genre"/>
-
-            <TextView
-                android:id="@+id/detail_genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"
-                android:layout_marginBottom="@dimen/generic_small"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
-                android:text="@string/label_detail_director"/>
-
-            <TextView
-                android:id="@+id/detail_director"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"/>
-
-        </LinearLayout>
-
+        </ScrollView>
+    
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/colorAccentDark" />
-
-    <TextView
-        android:id="@+id/detail_summary"
-        android:layout_width="match_parent"
+    
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/detail_star_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/generic_medium"
-        android:lineSpacingExtra="6dp"
-        android:textAppearance="@style/AppTheme.TextAppearance.Summary"/>
-
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/generic_medium"
+        android:tint="@android:color/white"
+        android:src="@drawable/ic_star_empty_24dp" />
+    
+</RelativeLayout>

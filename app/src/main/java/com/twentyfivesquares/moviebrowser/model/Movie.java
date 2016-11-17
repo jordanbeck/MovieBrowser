@@ -33,6 +33,8 @@ public class Movie implements Parcelable {
     @SerializedName("Poster")
     public String poster;
 
+    public boolean starred;
+
     public Movie() {}
 
     private Movie(Parcel parcel) {
@@ -45,6 +47,7 @@ public class Movie implements Parcelable {
         director = parcel.readString();
         plot = parcel.readString();
         poster = parcel.readString();
+        starred = Boolean.parseBoolean(parcel.readString());
     }
 
     @Override
@@ -63,6 +66,7 @@ public class Movie implements Parcelable {
         parcel.writeString(director);
         parcel.writeString(plot);
         parcel.writeString(poster);
+        parcel.writeString(Boolean.toString(starred));
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
