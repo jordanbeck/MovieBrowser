@@ -2,6 +2,7 @@ package com.twentyfivesquares.moviebrowser.api;
 
 import com.google.gson.annotations.SerializedName;
 import com.twentyfivesquares.moviebrowser.model.Movie;
+import com.twentyfivesquares.moviebrowser.model.MovieDetail;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class MovieApi extends Api {
         @GET("/")
         void fetchMovie(@Query("i") String id,
                         @Query("plot") String plot,
-                        Callback<Movie> callback);
+                        Callback<MovieDetail> callback);
 
         @GET("/")
         void search(@Query("s") String search,
@@ -32,7 +33,7 @@ public class MovieApi extends Api {
         movieService = getAdapter().create(MovieService.class);
     }
 
-    public void fetchMovie(String id, final Callback<Movie> callback) {
+    public void fetchMovie(String id, final Callback<MovieDetail> callback) {
         movieService.fetchMovie(id, PLOT_FULL, callback);
     }
 

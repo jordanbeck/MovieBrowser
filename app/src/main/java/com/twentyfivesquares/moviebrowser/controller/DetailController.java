@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.api.MovieApi;
 import com.twentyfivesquares.moviebrowser.model.Movie;
+import com.twentyfivesquares.moviebrowser.model.MovieDetail;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,7 +27,7 @@ public class DetailController extends TinyController {
     private TextView vSummary;
     private FloatingActionButton vStarButton;
 
-    private Movie movie;
+    private MovieDetail movieDetail;
 
     public DetailController(Context context, String movieId) {
         super(context);
@@ -46,10 +47,10 @@ public class DetailController extends TinyController {
         });
 
         MovieApi api = new MovieApi();
-        api.fetchMovie(movieId, new Callback<Movie>() {
+        api.fetchMovie(movieId, new Callback<MovieDetail>() {
             @Override
-            public void success(Movie movie, Response response) {
-                populate(movie);
+            public void success(MovieDetail movieDetail, Response response) {
+                populate(movieDetail);
             }
 
             @Override
@@ -62,23 +63,23 @@ public class DetailController extends TinyController {
         return R.layout.controller_detail;
     }
 
-    private void populate(Movie movie) {
-        this.movie = movie;
+    private void populate(MovieDetail movieDetail) {
+        this.movieDetail = movieDetail;
 
-        vTitle.setText(movie.title);
-        vGenre.setText(movie.genre);
-        vDirector.setText(movie.director);
-        vSummary.setText(TextUtils.isEmpty(movie.plot) ?
-                getContext().getString(R.string.msg_no_summary) : movie.plot);
-        vMetadata.setText(TextUtils.isEmpty(movie.rated) ?
-                getContext().getString(R.string.label_movie_metadata_two, movie.year, movie.runtime) :
-                getContext().getString(R.string.label_movie_metadata_three, movie.rated, movie.year, movie.runtime));
+        vTitle.setText(movieDetail.title);
+        vGenre.setText(movieDetail.genre);
+        vDirector.setText(movieDetail.director);
+        vSummary.setText(TextUtils.isEmpty(movieDetail.plot) ?
+                getContext().getString(R.string.msg_no_summary) : movieDetail.plot);
+        vMetadata.setText(TextUtils.isEmpty(movieDetail.rated) ?
+                getContext().getString(R.string.label_movie_metadata_two, movieDetail.year, movieDetail.runtime) :
+                getContext().getString(R.string.label_movie_metadata_three, movieDetail.rated, movieDetail.year, movieDetail.runtime));
 
-        Picasso.with(getContext()).load(movie.poster).into(vPoster);
+        Picasso.with(getContext()).load(movieDetail.poster).into(vPoster);
     }
 
     private void toggleStar() {
-        movie.starred = !movie.starred;
-        vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
+        movieDetail.starred = !movieDetail.starred;
+        vStarButton.setImageResource(movieDetail.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
     }
 }
