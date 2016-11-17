@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.controller.view.StarRibbonView;
+import com.twentyfivesquares.moviebrowser.manager.MovieManager;
 import com.twentyfivesquares.moviebrowser.model.Movie;
 
 import java.util.List;
@@ -53,6 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         holder.vName.setText(movie.title);
         holder.vMetadata.setText(movie.year);
+        holder.vStar.setVisibility(MovieManager.isStarred(movie.id) ? View.VISIBLE : View.GONE);
 
         Picasso.with(context).load(movie.poster).into(holder.vPoster);
 

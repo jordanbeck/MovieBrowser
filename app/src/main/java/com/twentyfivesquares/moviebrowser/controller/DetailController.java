@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.api.MovieApi;
-import com.twentyfivesquares.moviebrowser.model.Movie;
+import com.twentyfivesquares.moviebrowser.manager.MovieManager;
 import com.twentyfivesquares.moviebrowser.model.MovieDetail;
 
 import retrofit.Callback;
@@ -65,6 +65,7 @@ public class DetailController extends TinyController {
 
     private void populate(MovieDetail movieDetail) {
         this.movieDetail = movieDetail;
+        this.movieDetail.starred = MovieManager.isStarred(movieDetail.id);
 
         vTitle.setText(movieDetail.title);
         vGenre.setText(movieDetail.genre);
@@ -74,6 +75,7 @@ public class DetailController extends TinyController {
         vMetadata.setText(TextUtils.isEmpty(movieDetail.rated) ?
                 getContext().getString(R.string.label_movie_metadata_two, movieDetail.year, movieDetail.runtime) :
                 getContext().getString(R.string.label_movie_metadata_three, movieDetail.rated, movieDetail.year, movieDetail.runtime));
+        vStarButton.setImageResource(movieDetail.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
 
         Picasso.with(getContext()).load(movieDetail.poster).into(vPoster);
     }

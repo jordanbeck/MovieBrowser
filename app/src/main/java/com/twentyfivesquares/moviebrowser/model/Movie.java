@@ -29,6 +29,14 @@ public class Movie implements Parcelable {
 
     public Movie() {}
 
+    public Movie(String id, String title, String year, String poster, boolean starred) {
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.poster = poster;
+        this.starred = starred;
+    }
+
     private Movie(Parcel parcel) {
         id = parcel.readString();
         title = parcel.readString();

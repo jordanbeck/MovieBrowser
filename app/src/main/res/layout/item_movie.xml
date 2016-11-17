@@ -23,7 +23,8 @@
             android:id="@+id/movie_star"
             android:layout_width="@dimen/star_ribbon_size"
             android:layout_height="@dimen/star_ribbon_size"
-            android:layout_alignRight="@id/movie_poster"/>
+            android:layout_alignRight="@id/movie_poster"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:orientation="vertical"
