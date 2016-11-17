@@ -7,6 +7,7 @@
     <!-- Messages -->
     <string name="msg_no_movies">Please search for movies of interest.</string>
     <string name="msg_no_movies_search">No movies found for \'%1$s\'.</string>
+    <string name="msg_no_favorites">No movies have been favorited.</string>
     <string name="msg_no_summary">There is no summary available for this movie.</string>
 
     <!-- Labels -->

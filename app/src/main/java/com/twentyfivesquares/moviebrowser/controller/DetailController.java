@@ -11,6 +11,7 @@ import com.squareup.picasso.Picasso;
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.api.MovieApi;
 import com.twentyfivesquares.moviebrowser.manager.MovieManager;
+import com.twentyfivesquares.moviebrowser.model.Movie;
 import com.twentyfivesquares.moviebrowser.model.MovieDetail;
 
 import retrofit.Callback;
@@ -27,10 +28,13 @@ public class DetailController extends TinyController {
     private TextView vSummary;
     private FloatingActionButton vStarButton;
 
+    private Movie movie;
     private MovieDetail movieDetail;
 
-    public DetailController(Context context, String movieId) {
+    public DetailController(Context context, Movie movie) {
         super(context);
+
+        this.movie = movie;
 
         vPoster = (ImageView) findViewById(R.id.detail_poster);
         vTitle = (TextView) findViewById(R.id.detail_title);
@@ -39,6 +43,7 @@ public class DetailController extends TinyController {
         vDirector = (TextView) findViewById(R.id.detail_director);
         vSummary = (TextView) findViewById(R.id.detail_summary);
         vStarButton = (FloatingActionButton) findViewById(R.id.detail_star_button);
+        vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
         vStarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +52,7 @@ public class DetailController extends TinyController {
         });
 
         MovieApi api = new MovieApi();
-        api.fetchMovie(movieId, new Callback<MovieDetail>() {
+        api.fetchDetails(movie.id, new Callback<MovieDetail>() {
             @Override
             public void success(MovieDetail movieDetail, Response response) {
                 populate(movieDetail);
@@ -65,7 +70,6 @@ public class DetailController extends TinyController {
 
     private void populate(MovieDetail movieDetail) {
         this.movieDetail = movieDetail;
-        this.movieDetail.starred = MovieManager.isStarred(movieDetail.id);
 
         vTitle.setText(movieDetail.title);
         vGenre.setText(movieDetail.genre);
@@ -75,13 +79,19 @@ public class DetailController extends TinyController {
         vMetadata.setText(TextUtils.isEmpty(movieDetail.rated) ?
                 getContext().getString(R.string.label_movie_metadata_two, movieDetail.year, movieDetail.runtime) :
                 getContext().getString(R.string.label_movie_metadata_three, movieDetail.rated, movieDetail.year, movieDetail.runtime));
-        vStarButton.setImageResource(movieDetail.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
+        vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
 
         Picasso.with(getContext()).load(movieDetail.poster).into(vPoster);
     }
 
     private void toggleStar() {
-        movieDetail.starred = !movieDetail.starred;
-        vStarButton.setImageResource(movieDetail.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
+        movie.starred = !movie.starred;
+        vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
+
+        if (movie.starred) {
+            MovieManager.saveMovie(getContext(), movie);
+        } else {
+            MovieManager.deleteMovie(getContext(), movie.id);
+        }
     }
 }

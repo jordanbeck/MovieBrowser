@@ -7,18 +7,19 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.twentyfivesquares.moviebrowser.controller.DetailController;
+import com.twentyfivesquares.moviebrowser.model.Movie;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MOVIE_ID = DetailActivity.class.getName() + ".MOVIE_ID";
+    public final static String EXTRA_MOVIE = DetailActivity.class.getName() + ".MOVIE";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Build the controller and set the view
-        final String id = getIntent().getStringExtra(EXTRA_MOVIE_ID);
-        DetailController controller = new DetailController(this, id);
+        final Movie movie = (Movie) getIntent().getExtras().get(EXTRA_MOVIE);
+        DetailController controller = new DetailController(this, movie);
         setContentView(controller.getView());
 
         // Initialize the toolbar

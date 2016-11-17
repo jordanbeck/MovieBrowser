@@ -33,7 +33,7 @@ public class MovieApi extends Api {
         movieService = getAdapter().create(MovieService.class);
     }
 
-    public void fetchMovie(String id, final Callback<MovieDetail> callback) {
+    public void fetchDetails(String id, final Callback<MovieDetail> callback) {
         movieService.fetchMovie(id, PLOT_FULL, callback);
     }
 

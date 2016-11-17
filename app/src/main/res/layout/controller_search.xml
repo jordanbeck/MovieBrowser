@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textAppearance="@style/AppTheme.TextAppearance.Search.Empty"
-            android:text="No movies"/>
+            android:text="@string/msg_no_movies"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/search_list"

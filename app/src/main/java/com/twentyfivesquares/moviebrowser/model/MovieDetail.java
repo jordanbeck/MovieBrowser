@@ -6,7 +6,7 @@ import retrofit.Callback;
 
 /**
  * This object is for when we fetch all the details for a movie. This is done
- *  using {@link com.twentyfivesquares.moviebrowser.api.MovieApi#fetchMovie(String, Callback)}.
+ *  using {@link com.twentyfivesquares.moviebrowser.api.MovieApi#fetchDetails(String, Callback)}.
  */
 public class MovieDetail {
 
@@ -36,6 +36,4 @@ public class MovieDetail {
 
     @SerializedName("Poster")
     public String poster;
-
-    public boolean starred;
 }

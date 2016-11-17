@@ -34,7 +34,6 @@ public class SearchController extends TinyController {
 
     private MovieApi api;
     private MovieAdapter adapter;
-
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}

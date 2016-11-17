@@ -51,10 +51,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Context context = holder.itemView.getContext();
         final Movie movie = movies.get(position);
+        // This object came from the web, so we need to update the starred value
+        movie.starred = MovieManager.isStarred(context, movie.id);
 
         holder.vName.setText(movie.title);
         holder.vMetadata.setText(movie.year);
-        holder.vStar.setVisibility(MovieManager.isStarred(movie.id) ? View.VISIBLE : View.GONE);
+        holder.vStar.setVisibility(movie.starred ? View.VISIBLE : View.GONE);
 
         Picasso.with(context).load(movie.poster).into(holder.vPoster);
 
