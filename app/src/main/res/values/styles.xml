@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="editTextStyle">@style/AppTheme.EditTextStyle</item>
+    </style>
+
+    <style name="AppTheme.EditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
+        <item name="android:textSize">@dimen/font_regular</item>
+        <item name="android:textColor">@color/fontPrimary</item>
+        <item name="android:textColorHint">@color/fontSecondary</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:padding">@dimen/generic_medium</item>
     </style>
 
     <!-- Foundational text appearances -->
@@ -36,6 +46,9 @@
     <style name="AppTheme.TextAppearance.Summary">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/fontSecondary</item>>
+    </style>
+    <style name="AppTheme.TextAppearance.Search.Empty" parent="AppTheme.TextAppearance.Secondary">
+        <item name="android:textStyle">italic</item>
     </style>
 
 </resources>

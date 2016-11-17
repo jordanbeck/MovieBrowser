@@ -15,4 +15,7 @@
     <string name="label_detail_genre">Genre</string>
     <string name="label_detail_director">Director</string>
 
+    <!-- Hint -->
+    <string name="hint_search">Search movies...</string>
+
 </resources>
