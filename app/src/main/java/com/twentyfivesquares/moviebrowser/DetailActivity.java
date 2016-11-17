@@ -32,6 +32,7 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // Handle the "Up" button
             finish();
             return true;
         } else {

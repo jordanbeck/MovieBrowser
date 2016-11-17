@@ -4,15 +4,16 @@ package com.twentyfivesquares.moviebrowser.api;
 import retrofit.RestAdapter;
 
 /**
- * Note: I always use a class like this for building a common adapter for all API endpoints.
+ * Note: I always use a class like this for building a common adapter for all API endpoints. It's
+ *  not entirely necessary for this project, but I just wanted to show it.
  */
-public class Api {
+class Api {
     private final String ENDPOINT = "http://www.omdbapi.com";
-    private final RestAdapter.LogLevel LOG_LEVEL = RestAdapter.LogLevel.FULL;
+    private final RestAdapter.LogLevel LOG_LEVEL = RestAdapter.LogLevel.NONE;
 
     private RestAdapter adapter;
 
-    protected RestAdapter getAdapter() {
+    RestAdapter getAdapter() {
         if (adapter == null) {
             adapter = new RestAdapter.Builder()
                     .setEndpoint(ENDPOINT)

@@ -4,10 +4,8 @@ package com.twentyfivesquares.moviebrowser.manager;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.twentyfivesquares.moviebrowser.db.MovieContract;
-import com.twentyfivesquares.moviebrowser.db.MovieDbHelper;
 import com.twentyfivesquares.moviebrowser.model.Movie;
 
 import java.util.ArrayList;
@@ -18,14 +16,16 @@ import java.util.List;
  *  for all models and this allows me to switch out the data source and never impact the rest of
  *  production code.
  */
-public class MovieManager {
+public class MovieManager extends Manager {
 
-    private static MovieDbHelper helper;
+    public MovieManager(Context context) {
+        super(context);
+    }
 
-    public static Movie fetchMovie(Context context, String id) {
+    public Movie fetchMovie(String id) {
         String selection = MovieContract.COLUMN_NAME_ID + "=?";
         String[] selections = new String[]{id};
-        Cursor cursor = getReadableDatabase(context).query(
+        Cursor cursor = getReadableDatabase().query(
                 MovieContract.TABLE_NAME,
                 MovieContract.COLUMNS,
                 selection,
@@ -35,8 +35,8 @@ public class MovieManager {
         return getMovie(cursor);
     }
 
-    public static List<Movie> fetchStarred(Context context) {
-        Cursor cursor = getReadableDatabase(context).query(
+    public List<Movie> fetchStarred() {
+        Cursor cursor = getReadableDatabase().query(
                 MovieContract.TABLE_NAME,
                 MovieContract.COLUMNS,
                 null, null, null, null, null);
@@ -44,10 +44,10 @@ public class MovieManager {
         return getMovies(cursor);
     }
 
-    public static boolean isStarred(Context context, String id) {
+    public boolean isStarred(String id) {
         String selection = MovieContract.COLUMN_NAME_ID + "=?";
         String[] selectionArgs = new String[]{id};
-        Cursor cursor = getReadableDatabase(context).query(
+        Cursor cursor = getReadableDatabase().query(
                 MovieContract.TABLE_NAME,
                 MovieContract.COLUMNS,
                 selection,
@@ -57,7 +57,7 @@ public class MovieManager {
         return cursor != null && cursor.getCount() > 0;
     }
 
-    public static long saveMovie(Context context, Movie movie) {
+    public long saveMovie(Movie movie) {
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(MovieContract.COLUMN_NAME_ID, movie.id);
@@ -67,32 +67,16 @@ public class MovieManager {
         values.put(MovieContract.COLUMN_NAME_STARRED, movie.starred ? 1 : 0);
 
         // Insert the movie data and return the new row id
-        return getWriteableDatabase(context).insert(MovieContract.TABLE_NAME, null, values);
+        return getWriteableDatabase().insert(MovieContract.TABLE_NAME, null, values);
     }
 
-    public static void deleteMovie(Context context, String id) {
+    public void deleteMovie(String id) {
         String selection = MovieContract.COLUMN_NAME_ID + "=?";
         String[] selectionArgs = new String[]{id};
-        getWriteableDatabase(context).delete(MovieContract.TABLE_NAME, selection, selectionArgs);
+        getWriteableDatabase().delete(MovieContract.TABLE_NAME, selection, selectionArgs);
     }
 
-    private static SQLiteDatabase getReadableDatabase(Context context) {
-        if (helper == null) {
-            helper = new MovieDbHelper(context);
-        }
-
-        return helper.getReadableDatabase();
-    }
-
-    private static SQLiteDatabase getWriteableDatabase(Context context) {
-        if (helper == null) {
-            helper = new MovieDbHelper(context);
-        }
-
-        return helper.getWritableDatabase();
-    }
-
-    private static Movie getMovie(Cursor cursor) {
+    private Movie getMovie(Cursor cursor) {
         if (cursor == null || cursor.getCount() == 0) {
             return null;
         }
@@ -111,7 +95,7 @@ public class MovieManager {
         return movie;
     }
 
-    private static List<Movie> getMovies(Cursor cursor) {
+    private List<Movie> getMovies(Cursor cursor) {
         if (cursor == null || cursor.getCount() == 0) {
             return new ArrayList<>();
         }

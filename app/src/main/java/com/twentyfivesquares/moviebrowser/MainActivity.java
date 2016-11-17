@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onMovieSelected(Movie movie) {
+        // TODO: Add an activity transition here
         Intent i = new Intent(this, DetailActivity.class);
         i.putExtra(DetailActivity.EXTRA_MOVIE, movie);
         startActivity(i);

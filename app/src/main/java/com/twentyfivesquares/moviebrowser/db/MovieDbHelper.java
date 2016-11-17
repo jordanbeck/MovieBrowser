@@ -4,11 +4,10 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import static com.twentyfivesquares.moviebrowser.db.DatabaseConstants.DATABASE_NAME;
+import static com.twentyfivesquares.moviebrowser.db.DatabaseConstants.DATABASE_VERSION;
 
 public class MovieDbHelper extends SQLiteOpenHelper {
-
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "MovieBrowser.db";
 
     public MovieDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

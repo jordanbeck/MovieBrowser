@@ -5,7 +5,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Implementation of {@link PagerAdapter} that represents each page as a {@link View}.
+ * This is an implementation of {@link PagerAdapter} that represents each page as a {@link View}.
+ *  I have used this with Controllers for a long time. It is basically the equivalent of
+ *  {@link android.support.v4.app.FragmentPagerAdapter}
  */
 public abstract class ViewPagerAdapter extends PagerAdapter {
     /**

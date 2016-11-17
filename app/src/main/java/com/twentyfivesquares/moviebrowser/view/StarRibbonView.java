@@ -1,4 +1,4 @@
-package com.twentyfivesquares.moviebrowser.controller.view;
+package com.twentyfivesquares.moviebrowser.view;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -43,8 +43,7 @@ public class StarRibbonView extends View {
     }
 
     private void init() {
-        // Allocate all variables possible before we start drawing
-
+        // Allocate all variables before drawing
         int color = getContext().getResources().getColor(R.color.colorAccent);
         accentPaint = new Paint();
         accentPaint.setColor(color);
@@ -52,13 +51,14 @@ public class StarRibbonView extends View {
         whitePaint = new Paint();
         whitePaint.setColor(Color.WHITE);
 
+        // Get all dimens needed for drawing
         Resources res = getResources();
         starTop = res.getDimensionPixelSize(R.dimen.star_top);
         starLeft = res.getDimensionPixelSize(R.dimen.star_left);
         final int starSize = res.getDimensionPixelSize(R.dimen.star_size);
         // Because I'm not much of a designer, I had to resize this on the fly instead of generating
         // the asset to fit :) I attempted to use a vector drawable, but there appears to be a problem
-        // when attempting to draw one on a canvas (the Paint color is ignored). So i had to stick
+        // when attempting to draw one on a canvas (the Paint color is ignored). So I had to stick
         // with the old fashion icons for this one.
         starBitmap = Bitmap.createScaledBitmap(
                 BitmapFactory.decodeResource(res, R.drawable.ic_star), starSize, starSize, false);

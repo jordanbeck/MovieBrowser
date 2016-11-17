@@ -3,13 +3,11 @@ package com.twentyfivesquares.moviebrowser.controller;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -26,6 +24,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Controller for the search list
+ */
 public class SearchController extends TinyController {
 
     private EditText vSearch;
@@ -50,7 +51,8 @@ public class SearchController extends TinyController {
     public SearchController(Context context, MovieAdapter.OnMovieSelectedListener movieSelectedListener) {
         super(context);
 
-        // This is a hack to keep the keyboard hidden when the app launches
+        // This is a hack to keep the keyboard hidden when the app launches (doesn't seem to
+        // work in the emulator...)
         getView().post(new Runnable() {
             @Override
             public void run() {
@@ -58,13 +60,13 @@ public class SearchController extends TinyController {
             }
         });
 
-        // Initialize the search box with a text watcher
+        // Initialize the search box with a text watcher for real-time searching
         api = new MovieApi();
         vSearch = (EditText) findViewById(R.id.search_search);
         vSearch.addTextChangedListener(textWatcher);
 
         // Build the list
-        adapter = new MovieAdapter();
+        adapter = new MovieAdapter(context);
         adapter.setOnMovieSelectedListener(movieSelectedListener);
         GridLayoutManager layoutManager = new GridLayoutManager(context, 2);
         vList = (RecyclerView) findViewById(R.id.search_list);
@@ -75,19 +77,9 @@ public class SearchController extends TinyController {
         vEmpty = (TextView) findViewById(R.id.search_empty);
         showEmpty();
 
-        MovieApi api = new MovieApi();
-        api.search("Star Wars", new Callback<List<Movie>>() {
-            @Override
-            public void success(List<Movie> movies, Response response) {
-                showList();
-                adapter.update(movies);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Log.e("UI", error.getMessage());
-            }
-        });
+        // Preload the search with the results from 'Star Wars' (just to keep the screen from being
+        // empty on launch).
+        search("Star Wars");
     }
 
     @Override
@@ -95,27 +87,21 @@ public class SearchController extends TinyController {
         return R.layout.controller_search;
     }
 
-    private void hideKeyboard(Context context) {
-        View view = ((Activity) context).getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
-
     private void showEmpty() {
-        showEmpty(null);
+        showEmpty(R.string.msg_no_movies);
     }
 
-    private void showEmpty(String searchTerm) {
+    private void showEmpty(@StringRes int message) {
+        showEmpty(getContext().getString(message));
+    }
+
+    private void showEmpty(String message) {
         if (vEmpty.getVisibility() != View.VISIBLE) {
             vList.setVisibility(View.GONE);
             vEmpty.setVisibility(View.VISIBLE);
         }
 
-        vEmpty.setText(TextUtils.isEmpty(searchTerm) ?
-                getContext().getString(R.string.msg_no_movies) :
-                getContext().getString(R.string.msg_no_movies_search, searchTerm));
+        vEmpty.setText(message);
     }
 
     private void showList() {
@@ -133,13 +119,14 @@ public class SearchController extends TinyController {
             return;
         }
 
+        // TODO: Add the ability to cancel this transaction if it doesn't return before the next search query
         api.search(searchTerm, new Callback<List<Movie>>() {
             @Override
             public void success(List<Movie> movies, Response response) {
+                // Update the adapter and show the list/empty view
                 adapter.update(movies);
-
                 if (movies == null || movies.size() == 0) {
-                    showEmpty(searchTerm);
+                    showEmpty(getContext().getString(R.string.msg_no_movies_search, searchTerm));
                 } else {
                     showList();
                 }
@@ -147,8 +134,17 @@ public class SearchController extends TinyController {
 
             @Override
             public void failure(RetrofitError error) {
-
+                // Show an error message
+                showEmpty(R.string.msg_search_error);
             }
         });
+    }
+
+    private void hideKeyboard(Context context) {
+        View view = ((Activity) context).getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 }

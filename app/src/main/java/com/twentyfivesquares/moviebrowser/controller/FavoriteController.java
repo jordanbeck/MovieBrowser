@@ -12,6 +12,9 @@ import com.twentyfivesquares.moviebrowser.model.Movie;
 
 import java.util.List;
 
+/**
+ * Controller for the favorite list screen
+ */
 public class FavoriteController extends TinyController {
 
     private RecyclerView vList;
@@ -20,14 +23,18 @@ public class FavoriteController extends TinyController {
     public FavoriteController(Context context) {
         super(context);
 
+        // Initialize the emoty view
         vEmpty = findViewById(R.id.favorite_empty);
 
-        List<Movie> movies = MovieManager.fetchStarred(context);
-        MovieAdapter adapter = new MovieAdapter(movies);
+        // Initialize the list and adapter
+        MovieManager manager = new MovieManager(context);
+        List<Movie> movies = manager.fetchStarred();
+        MovieAdapter adapter = new MovieAdapter(context, movies);
         vList = (RecyclerView) findViewById(R.id.favorite_list);
         vList.setLayoutManager(new GridLayoutManager(context, 2));
         vList.setAdapter(adapter);
 
+        // Show the empty screen if necessary
         if (movies == null || movies.size() == 0) {
             showEmpty();
         } else {

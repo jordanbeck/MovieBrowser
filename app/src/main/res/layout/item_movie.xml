@@ -19,7 +19,7 @@
             android:scaleType="centerCrop"
             android:background="@color/colorAccent"/>
 
-        <com.twentyfivesquares.moviebrowser.controller.view.StarRibbonView
+        <com.twentyfivesquares.moviebrowser.view.StarRibbonView
             android:id="@+id/movie_star"
             android:layout_width="@dimen/star_ribbon_size"
             android:layout_height="@dimen/star_ribbon_size"

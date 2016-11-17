@@ -1,8 +1,14 @@
 package com.twentyfivesquares.moviebrowser.db;
 
-
+/**
+ * File containing all database constants
+ */
 public class DatabaseConstants {
 
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "MovieBrowser.db";
+
+    // The master create statement for the entire database
     public static final String CREATE_STATEMENT =
             "CREATE TABLE " + MovieContract.TABLE_NAME + " (" +
                     MovieContract._ID + " INTEGER PRIMARY KEY, " +

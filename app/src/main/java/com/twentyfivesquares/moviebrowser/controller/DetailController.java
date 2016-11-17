@@ -18,6 +18,9 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+/**
+ * Controller for the movie detail screen
+ */
 public class DetailController extends TinyController {
 
     private ImageView vPoster;
@@ -30,12 +33,15 @@ public class DetailController extends TinyController {
 
     private Movie movie;
     private MovieDetail movieDetail;
+    private MovieManager manager;
 
     public DetailController(Context context, Movie movie) {
         super(context);
 
         this.movie = movie;
+        this.manager = new MovieManager(context);
 
+        // Initialize all views
         vPoster = (ImageView) findViewById(R.id.detail_poster);
         vTitle = (TextView) findViewById(R.id.detail_title);
         vGenre = (TextView) findViewById(R.id.detail_genre);
@@ -51,6 +57,7 @@ public class DetailController extends TinyController {
             }
         });
 
+        // Fetch the details for the movie. This will get the rating, plot, etc.
         MovieApi api = new MovieApi();
         api.fetchDetails(movie.id, new Callback<MovieDetail>() {
             @Override
@@ -71,6 +78,7 @@ public class DetailController extends TinyController {
     private void populate(MovieDetail movieDetail) {
         this.movieDetail = movieDetail;
 
+        // Populate the view with the movie details
         vTitle.setText(movieDetail.title);
         vGenre.setText(movieDetail.genre);
         vDirector.setText(movieDetail.director);
@@ -81,17 +89,20 @@ public class DetailController extends TinyController {
                 getContext().getString(R.string.label_movie_metadata_three, movieDetail.rated, movieDetail.year, movieDetail.runtime));
         vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
 
+        // Load the poster image
         Picasso.with(getContext()).load(movieDetail.poster).into(vPoster);
     }
 
     private void toggleStar() {
         movie.starred = !movie.starred;
+        // Update the star in the FAB
         vStarButton.setImageResource(movie.starred ? R.drawable.ic_star : R.drawable.ic_star_empty_24dp);
 
+        // Update the database
         if (movie.starred) {
-            MovieManager.saveMovie(getContext(), movie);
+            manager.saveMovie(movie);
         } else {
-            MovieManager.deleteMovie(getContext(), movie.id);
+            manager.deleteMovie(movie.id);
         }
     }
 }
