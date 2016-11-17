@@ -37,6 +37,13 @@ public class MainController extends TinyController {
         return R.layout.controller_main;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        searchController.onResume();
+        favoriteController.onResume();
+    }
+
     public void updateConnectivity() {
         searchController.updateConnectivity();
     }

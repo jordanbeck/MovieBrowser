@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        controller.onResume();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         // Unregister for connectivity changes

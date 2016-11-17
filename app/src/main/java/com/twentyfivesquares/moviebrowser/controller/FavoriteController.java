@@ -19,6 +19,8 @@ public class FavoriteController extends TinyController {
 
     private RecyclerView vList;
     private View vEmpty;
+    private MovieAdapter adapter;
+    private MovieManager manager;
 
     public FavoriteController(Context context, MovieAdapter.OnMovieSelectedListener movieSelectedListener) {
         super(context);
@@ -27,9 +29,9 @@ public class FavoriteController extends TinyController {
         vEmpty = findViewById(R.id.favorite_empty);
 
         // Initialize the list and adapter
-        MovieManager manager = new MovieManager(context);
-        List<Movie> movies = manager.fetchStarred();
-        MovieAdapter adapter = new MovieAdapter(context, movies);
+        manager = new MovieManager(context);
+        final List<Movie> movies = manager.fetchStarred();
+        adapter = new MovieAdapter(context, movies);
         adapter.setOnMovieSelectedListener(movieSelectedListener);
         vList = (RecyclerView) findViewById(R.id.favorite_list);
         vList.setLayoutManager(new GridLayoutManager(context, 2));
@@ -46,6 +48,13 @@ public class FavoriteController extends TinyController {
     @Override
     protected int getLayoutRes() {
         return R.layout.controller_favorite;
+    }
+
+    @Override
+    public void onResume() {
+        // TODO: This should be dynamically refreshed based off of db changes
+        final List<Movie> movies = manager.fetchStarred();
+        adapter.update(movies);
     }
 
     private void showEmpty() {

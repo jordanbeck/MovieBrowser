@@ -91,6 +91,12 @@ public class SearchController extends TinyController {
         return R.layout.controller_search;
     }
 
+    @Override
+    public void onResume() {
+        // TODO: This should be dynamically refreshed based off of db changes
+        search(vSearch.getText().toString());
+    }
+
     public void updateConnectivity() {
         final boolean connected = isConnected();
         vSearch.setEnabled(connected);
