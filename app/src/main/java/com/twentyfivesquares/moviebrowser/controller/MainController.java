@@ -12,12 +12,14 @@ import com.twentyfivesquares.moviebrowser.controller.view.ViewPagerAdapter;
 
 public class MainController extends TinyController {
 
-    private final MovieAdapter.OnMovieSelectedListener movieSelectedListener;
+    private SearchController searchController;
+    private FavoriteController favoriteController;
 
     public MainController(Context context, MovieAdapter.OnMovieSelectedListener movieSelectedListener) {
         super(context);
 
-        this.movieSelectedListener = movieSelectedListener;
+        this.searchController = new SearchController(getContext(), movieSelectedListener);
+        this.favoriteController = new FavoriteController(getContext(), movieSelectedListener);
 
         TabLayout vTabs = (TabLayout) findViewById(R.id.main_tabs);
         ViewPager vPager = (ViewPager) findViewById(R.id.main_pager);
@@ -35,24 +37,17 @@ public class MainController extends TinyController {
         return R.layout.controller_main;
     }
 
-    private class MainAdapter extends ViewPagerAdapter {
+    public void updateConnectivity() {
+        searchController.updateConnectivity();
+    }
 
-        private SearchController searchController;
-        private FavoriteController favoriteController;
+    private class MainAdapter extends ViewPagerAdapter {
 
         @Override
         protected View getView(int position, ViewGroup container) {
             if (position == 0) {
-                // Initialize the controller the first time.
-                if (searchController == null) {
-                    searchController = new SearchController(getContext(), movieSelectedListener);
-                }
                 return searchController.getView();
             } else if (position == 1) {
-                // Initialize the controller the first time.
-                if (favoriteController == null) {
-                    favoriteController = new FavoriteController(getContext());
-                }
                 return favoriteController.getView();
             }
 

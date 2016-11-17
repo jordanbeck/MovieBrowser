@@ -42,6 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
      */
     public void update(List<Movie> movies) {
         this.movies = movies;
+        // TODO: Use DiffUtil to animate changes to the RecyclerView
         notifyDataSetChanged();
     }
 
@@ -89,7 +90,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public int getItemCount() {
         return movies == null ? 0 : movies.size();
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView vName;

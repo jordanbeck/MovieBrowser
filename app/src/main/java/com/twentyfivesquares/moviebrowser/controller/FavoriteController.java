@@ -20,7 +20,7 @@ public class FavoriteController extends TinyController {
     private RecyclerView vList;
     private View vEmpty;
 
-    public FavoriteController(Context context) {
+    public FavoriteController(Context context, MovieAdapter.OnMovieSelectedListener movieSelectedListener) {
         super(context);
 
         // Initialize the emoty view
@@ -30,6 +30,7 @@ public class FavoriteController extends TinyController {
         MovieManager manager = new MovieManager(context);
         List<Movie> movies = manager.fetchStarred();
         MovieAdapter adapter = new MovieAdapter(context, movies);
+        adapter.setOnMovieSelectedListener(movieSelectedListener);
         vList = (RecyclerView) findViewById(R.id.favorite_list);
         vList.setLayoutManager(new GridLayoutManager(context, 2));
         vList.setAdapter(adapter);

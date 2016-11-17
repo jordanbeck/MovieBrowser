@@ -3,6 +3,8 @@ package com.twentyfivesquares.moviebrowser.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.twentyfivesquares.moviebrowser.R;
 import com.twentyfivesquares.moviebrowser.adapter.MovieAdapter;
@@ -63,6 +66,7 @@ public class SearchController extends TinyController {
         // Initialize the search box with a text watcher for real-time searching
         api = new MovieApi();
         vSearch = (EditText) findViewById(R.id.search_search);
+        vSearch.setEnabled(isConnected());
         vSearch.addTextChangedListener(textWatcher);
 
         // Build the list
@@ -85,6 +89,15 @@ public class SearchController extends TinyController {
     @Override
     protected int getLayoutRes() {
         return R.layout.controller_search;
+    }
+
+    public void updateConnectivity() {
+        final boolean connected = isConnected();
+        vSearch.setEnabled(connected);
+        if (!connected) {
+            Toast.makeText(getContext(), R.string.msg_no_connectivity, Toast.LENGTH_SHORT).show();
+            return;
+        }
     }
 
     private void showEmpty() {
@@ -112,6 +125,12 @@ public class SearchController extends TinyController {
     }
 
     private void search(final String searchTerm) {
+        // Show an error message is there is no connection
+        if (!isConnected()) {
+            Toast.makeText(getContext(), R.string.msg_no_connectivity, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (searchTerm.length() < 3) {
             // Don't execute searches under three characters. Clear out the list.
             adapter.update(null);
@@ -138,6 +157,13 @@ public class SearchController extends TinyController {
                 showEmpty(R.string.msg_search_error);
             }
         });
+    }
+
+    private boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
     private void hideKeyboard(Context context) {

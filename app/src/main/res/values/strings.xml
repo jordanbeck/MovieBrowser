@@ -10,6 +10,7 @@
     <string name="msg_no_favorites">No movies have been favorited.</string>
     <string name="msg_no_summary">There is no summary available for this movie.</string>
     <string name="msg_search_error">There was a problem loading this search. Please try again later.</string>
+    <string name="msg_no_connectivity">Currently not connected to the network.</string>
 
     <!-- Labels -->
     <string name="label_search">Search</string>
