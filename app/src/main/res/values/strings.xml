@@ -7,6 +7,9 @@
     <!-- Labels -->
     <string name="label_search">Search</string>
     <string name="label_favorites">Favorites</string>
-    <string name="label_movie_metadata">%1$s \u2022 %2$s</string>
+    <string name="label_movie_metadata_two">%1$s \u2022 %2$s</string>
+    <string name="label_movie_metadata_three">%1$s \u2022 %2$s \u2022 %3$s</string>
+    <string name="label_detail_genre">Genre</string>
+    <string name="label_detail_director">Director</string>
 
 </resources>

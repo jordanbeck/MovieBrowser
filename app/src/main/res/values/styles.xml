@@ -27,5 +27,15 @@
         <item name="android:textSize">@dimen/font_large</item>
     </style>
     <style name="AppTheme.TextAppearance.Metadata" parent="AppTheme.TextAppearance.Secondary" />
+    <style name="AppTheme.TextAppearance.Metadata.Detail">
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+    <style name="AppTheme.TextAppearance.Metadata.Detail.Label">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AppTheme.TextAppearance.Summary">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/fontSecondary</item>>
+    </style>
 
 </resources>

@@ -54,7 +54,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         holder.vName.setText(movie.title);
         // Sometimes the rating is null. In those cases, just show the year
         holder.vMetadata.setText(movie.rated == null ? movie.year :
-                context.getString(R.string.label_movie_metadata, movie.year, movie.rated));
+                context.getString(R.string.label_movie_metadata_two, movie.year, movie.rated));
 
         Picasso.with(context).load(movie.poster).into(holder.vPoster);
 

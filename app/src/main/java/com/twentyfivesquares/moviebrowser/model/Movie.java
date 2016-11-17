@@ -18,6 +18,12 @@ public class Movie implements Parcelable {
     @SerializedName("Rated")
     public String rated;
 
+    @SerializedName("Genre")
+    public String genre;
+
+    @SerializedName("Runtime")
+    public String runtime;
+
     @SerializedName("Director")
     public String director;
 
@@ -34,6 +40,8 @@ public class Movie implements Parcelable {
         title = parcel.readString();
         year = parcel.readString();
         rated = parcel.readString();
+        genre = parcel.readString();
+        runtime = parcel.readString();
         director = parcel.readString();
         plot = parcel.readString();
         poster = parcel.readString();
@@ -50,6 +58,8 @@ public class Movie implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(year);
         parcel.writeString(rated);
+        parcel.writeString(genre);
+        parcel.writeString(runtime);
         parcel.writeString(director);
         parcel.writeString(plot);
         parcel.writeString(poster);

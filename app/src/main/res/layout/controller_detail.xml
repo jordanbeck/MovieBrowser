@@ -2,33 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="@dimen/generic_medium">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/generic_medium">
+        android:padding="@dimen/generic_medium"
+        android:background="@color/colorAccent">
 
         <ImageView
             android:id="@+id/detail_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/generic_medium"/>
+            android:layout_marginRight="@dimen/generic_medium"
+            android:background="@color/colorPrimary"
+            android:padding="1dp"/>
 
-        <TextView
-            android:id="@+id/detail_title"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/generic_medium"
-            android:textAppearance="@style/AppTheme.TextAppearance.Title.Large"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/detail_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/AppTheme.TextAppearance.Title.Large"/>
+
+            <TextView
+                android:id="@+id/detail_metadata"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/generic_medium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
+                android:text="@string/label_detail_genre"/>
+
+            <TextView
+                android:id="@+id/detail_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"
+                android:layout_marginBottom="@dimen/generic_small"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail.Label"
+                android:text="@string/label_detail_director"/>
+
+            <TextView
+                android:id="@+id/detail_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/AppTheme.TextAppearance.Metadata.Detail"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccentDark" />
 
     <TextView
         android:id="@+id/detail_summary"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:padding="@dimen/generic_medium"
+        android:lineSpacingExtra="6dp"
+        android:textAppearance="@style/AppTheme.TextAppearance.Summary"/>
 
 </LinearLayout>
