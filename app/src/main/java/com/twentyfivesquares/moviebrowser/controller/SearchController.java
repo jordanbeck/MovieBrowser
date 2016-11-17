@@ -3,11 +3,16 @@ package com.twentyfivesquares.moviebrowser.controller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.twentyfivesquares.moviebrowser.R;
@@ -23,9 +28,25 @@ import retrofit.client.Response;
 
 public class SearchController extends TinyController {
 
+    private EditText vSearch;
     private RecyclerView vList;
     private TextView vEmpty;
+
+    private MovieApi api;
     private MovieAdapter adapter;
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            search(charSequence.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {}
+    };
 
     public SearchController(Context context, MovieAdapter.OnMovieSelectedListener movieSelectedListener) {
         super(context);
@@ -38,15 +59,22 @@ public class SearchController extends TinyController {
             }
         });
 
+        // Initialize the search box with a text watcher
+        api = new MovieApi();
+        vSearch = (EditText) findViewById(R.id.search_search);
+        vSearch.addTextChangedListener(textWatcher);
+
+        // Build the list
         adapter = new MovieAdapter();
         adapter.setOnMovieSelectedListener(movieSelectedListener);
-
         GridLayoutManager layoutManager = new GridLayoutManager(context, 2);
         vList = (RecyclerView) findViewById(R.id.search_list);
         vList.setLayoutManager(layoutManager);
         vList.setAdapter(adapter);
 
+        // Initialize the empty view
         vEmpty = (TextView) findViewById(R.id.search_empty);
+        showEmpty();
 
         MovieApi api = new MovieApi();
         api.search("Star Wars", new Callback<List<Movie>>() {
@@ -77,10 +105,18 @@ public class SearchController extends TinyController {
     }
 
     private void showEmpty() {
+        showEmpty(null);
+    }
+
+    private void showEmpty(String searchTerm) {
         if (vEmpty.getVisibility() != View.VISIBLE) {
             vList.setVisibility(View.GONE);
             vEmpty.setVisibility(View.VISIBLE);
         }
+
+        vEmpty.setText(TextUtils.isEmpty(searchTerm) ?
+                getContext().getString(R.string.msg_no_movies) :
+                getContext().getString(R.string.msg_no_movies_search, searchTerm));
     }
 
     private void showList() {
@@ -88,5 +124,32 @@ public class SearchController extends TinyController {
             vEmpty.setVisibility(View.GONE);
             vList.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void search(final String searchTerm) {
+        if (searchTerm.length() < 3) {
+            // Don't execute searches under three characters. Clear out the list.
+            adapter.update(null);
+            showEmpty();
+            return;
+        }
+
+        api.search(searchTerm, new Callback<List<Movie>>() {
+            @Override
+            public void success(List<Movie> movies, Response response) {
+                adapter.update(movies);
+
+                if (movies == null || movies.size() == 0) {
+                    showEmpty(searchTerm);
+                } else {
+                    showList();
+                }
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 }
