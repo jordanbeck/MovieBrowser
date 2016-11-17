@@ -12,7 +12,7 @@
     <style name="AppTheme.EditTextStyle" parent="@android:style/Widget.Holo.Light.EditText">
         <item name="android:textSize">@dimen/font_regular</item>
         <item name="android:textColor">@color/fontPrimary</item>
-        <item name="android:textColorHint">@color/fontSecondary</item>
+        <item name="android:textColorHint">@color/fontTertiary</item>
         <item name="android:singleLine">true</item>
         <item name="android:typeface">normal</item>
         <item name="android:padding">@dimen/generic_medium</item>

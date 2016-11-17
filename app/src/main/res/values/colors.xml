@@ -7,4 +7,5 @@
 
     <color name="fontPrimary">#121212</color>
     <color name="fontSecondary">#343434</color>
+    <color name="fontTertiary">#757575</color>
 </resources>

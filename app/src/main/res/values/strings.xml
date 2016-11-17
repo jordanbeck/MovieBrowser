@@ -18,6 +18,6 @@
     <string name="label_detail_director">Director</string>
 
     <!-- Hint -->
-    <string name="hint_search">Search movies...</string>
+    <string name="hint_search">Search movie titles (i.e.: \'Star Wars\')</string>
 
 </resources>
